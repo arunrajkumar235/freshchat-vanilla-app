@@ -1,9 +1,12 @@
 {
-  "name": "jaya",
+  "name": "freshchat-typescript-app",
   "version": "1.0.0",
-  "main": "index.js",
   "author": "Arun Rajkumar <arun.rajkumar@freshworks.com>",
   "license": "MIT",
+  "scripts": {
+    "watch": "tsc -w",
+    "lint": "eslint && tsc --noEmit"
+  },
   "lint-staged": {
     "server/src/**/*.ts": [
       "eslint"
