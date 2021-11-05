@@ -21,14 +21,6 @@ const callWebhook = async (
 };
 
 exports = {
-  events: [
-    { callback: 'onAppInstallCallback', event: 'onAppInstall' },
-    { callback: 'onAppUninstallCallback', event: 'onAppUninstall' },
-    { callback: 'onConversationCreateCallback', event: 'onConversationCreate' },
-    { callback: 'onConversationUpdateCallback', event: 'onConversationUpdate' },
-    { callback: 'onMessageCreateCallback', event: 'onMessageCreate' },
-  ],
-
   /**
    * App setup event which is triggered at the time of installation.
    */

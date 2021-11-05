@@ -1,10 +1,47 @@
 {
-  "platform-version": "2.0",
+  "platform-version": "2.2",
   "dependencies": {
     "axios": "0.19.2",
     "@freshworks-jaya/marketplace-models": "0.1.5"
   },
   "product": {
-    "freshchat": {}
+    "freshchat": {
+      "events": {
+        "onConversationCreate": {
+          "handler": "onConversationCreateCallback"
+        },
+        "onConversationUpdate": {
+          "handler": "onConversationUpdateCallback"
+        },
+        "onMessageCreate": {
+          "handler": "onMessageCreateCallback"
+        },
+        "onAppInstall": {
+          "handler": "onAppInstallCallback"
+        },
+        "onAppUninstall": {
+          "handler": "onAppUninstallCallback"
+        }
+      }
+    }
+  },
+  "whitelisted-domains": [
+    "https://*.freshchat.com",
+    "https://*.au.freshchat.com",
+    "https://*.eu.freshchat.com",
+    "https://*.in.freshchat.com",
+    "https://*.freshdesk.com",
+    "https://*.freshcaller.com",
+    "https://*.freshservice.com",
+    "https://*.freshsales.io",
+    "https://*.freshworks.com",
+    "https://*.myfreshworks.com",
+    "https://*.freshteam.com",
+    "https://*.m.pipedream.net",
+    "https://*.freshpori.com"
+  ],
+  "engines": {
+    "node": "12.22.5",
+    "fdk": "7.1.0"
   }
 }
