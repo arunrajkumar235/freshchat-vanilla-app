@@ -18,6 +18,8 @@
     }
   },
   "devDependencies": {
+    "axios": "0.19.2",
+    "@freshworks-jaya/marketplace-models": "0.1.5",
     "@typescript-eslint/eslint-plugin": "^2.18.0",
     "@typescript-eslint/parser": "^2.17.0",
     "eslint": "^6.8.0",

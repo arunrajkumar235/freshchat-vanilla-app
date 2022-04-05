@@ -16,11 +16,20 @@
         "onMessageCreate": {
           "handler": "onMessageCreateCallback"
         },
+        "onUserCreate": {
+          "handler": "onUserCreateCallback"
+        },
+        "onUserUpdate": {
+          "handler": "onUserUpdateCallback"
+        },
         "onAppInstall": {
           "handler": "onAppInstallCallback"
         },
         "onAppUninstall": {
           "handler": "onAppUninstallCallback"
+        },
+        "onExternalEvent": {
+          "handler": "onExternalEventCallback"
         }
       }
     }

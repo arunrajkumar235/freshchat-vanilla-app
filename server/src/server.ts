@@ -9,7 +9,7 @@ dummy.trim();
 
 const callWebhook = async (
   webhookUrl: string,
-  data: EventPayloadVanilla
+  data: unknown
 ): Promise<void> => {
   try {
     await axios.post(webhookUrl, JSON.stringify(data));
@@ -25,8 +25,33 @@ exports = {
    * App setup event which is triggered at the time of installation.
    */
   onAppInstallCallback(payload: EventPayloadVanilla): void {
-    callWebhook(payload.iparams.webhookUrl, payload);
-    renderData();
+    generateTargetUrl().then(
+      (url: string) => {
+        $db.set('webhookUrl', { url }).then(
+          () => {
+            callWebhook(payload.iparams.webhookUrl, {
+              externalEventUrl: url,
+              ...payload,
+            });
+            renderData();
+          },
+          () => {
+            callWebhook(payload.iparams.webhookUrl, {
+              success: false,
+              message: 'Error storing webhook url in db',
+            });
+            renderData({ message: 'Error storing webhook url in db' });
+          }
+        );
+      },
+      () => {
+        callWebhook(payload.iparams.webhookUrl, {
+          success: false,
+          message: 'Webhook registration failed',
+        });
+        renderData({ message: 'Webhook registration failed' });
+      }
+    );
   },
   /**
    * When you click the uninstall icon, the `onAppUninstall` event occurs
@@ -52,6 +77,24 @@ exports = {
    * Payload passed to the `onMessageCreateCallback` callback.
    */
   onMessageCreateCallback(payload: ProductEventPayloadVanilla): void {
+    callWebhook(payload.iparams.webhookUrl, payload);
+  },
+  /**
+   * Payload passed to the `onUserCreateCallback` callback.
+   */
+   onUserCreateCallback(payload: ProductEventPayloadVanilla): void {
+    callWebhook(payload.iparams.webhookUrl, payload);
+  },
+  /**
+   * Payload passed to the `onUserUpdateCallback` callback.
+   */
+   onUserUpdateCallback(payload: ProductEventPayloadVanilla): void {
+    callWebhook(payload.iparams.webhookUrl, payload);
+  },
+  /**
+   * Payload passed to the `onUserUpdateCallback` callback.
+   */
+   onExternalEventCallback(payload: EventPayloadVanilla): void {
     callWebhook(payload.iparams.webhookUrl, payload);
   },
 };
